@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{% if title %}
+    <title>{{ title }} - 博客</title>
+{% else %}
+    <title>欢迎来到博客!</title>
+{% endif %}
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="{{url_for('static', filename='./css/templatemo_style.css')}}" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript">
+function clearText(field)
+{
+    if (field.defaultValue == field.value) field.value = '';
+    else if (field.value == '') field.value = field.defaultValue;
+}
+</script>
+</head>
+<body>
+
+<div id="templatemo_header">
+            
+    <div id="site_title">
+
+        <p>使用Flask 制作的博客</p>
+        
+    </div> <!-- end of site_title -->
+    
+    <div id="header_right">
+    
+        {% if current_user.is_anonymous %}
+            <a href="{{ url_for('login') }}">登录</a>
+        {% else %}
+            <a href="{{ url_for('user', username=current_user.username) }}">用户中心</a>
+            <a href="{{ url_for('logout') }}">退出</a>
+        {% endif %}
+    
+    </div>
+    
+    <div class="cleaner"></div>
+    
+</div> <!-- end of header -->
+
+<div id="templatemo_menu_wrapper">
+	
+    <div id="templatemo_menu">
+        <ul>
+            <li><a href="{{ url_for('index') }}">首页</a></li>
+            <li><a href="{{ url_for('user', username=current_user.username) }}">个人中心</a></li>
+        </ul>    	
+	</div>
+</div> <!-- end of templatemo_menu -->
+
+
+<div id="templatemo_main"> <span class="tm_bottom"></span>
+	
+    <div id="templatemo_content">
+
+        <hr>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ur>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ur>
+            {% endif %}
+        {% endwith %}
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+    
+    <div id="templatemo_sidebar">
+    	<div class="sidebar_box">
+        	<h3>python flask</h3>
+            <div class="sb_content">
+                <li><a href="https://www.python.org/">关于python</a></li>
+                <li><a href="https://dormousehole.readthedocs.io/en/latest/">关于flask</a></li>
+            	<li><a href="#">源代码</a></li>
+            </div>
+        </div>
+    </div>
+    
+    <div class="cleaner"></div>
+</div> <!-- end of main -->
+
+<!-- <div id="templatmeo_bottom">
+	<div class="bottom_box">
+    	<h5><span>Sed Necest</span> Suspendisse a nibh</h5>
+        <p>Duis vitae velit sed dui malesuada dignissim. Donec mollis aliquet ligula. Maecenas adipiscing elementum ipsum.</p>
+		<a href="#" class="continue">more info</a>
+    </div>
+    
+    <div class="bottom_box">
+    	<h5><span>Lorem ipsum</span> dolor sit amet</h5>
+        <p>Vestibulum eleifend, enim ut molestie pulvinar, purus est fringilla augue, ut tristique nunc neque a libero.</p>
+		<a href="#" class="continue">more info</a>
+    </div>
+    
+    <div class="bottom_box">
+    	<h5><span>Recent</span> Blog Post</h5>
+       	<ul class="bottom_box_list">
+        	<li><a href="#">Duis vitae velit sed lesuada dignissim.</a></li>
+            <li><a href="#">Donec mollis aliquet ligula.</a></li>
+            <li><a href="#">Maecenas adipiscing elementum ipsum.</a></li>
+        </ul>
+    </div>
+
+</div> end of bottom -->
+
+
+
+</body>
+</html>
